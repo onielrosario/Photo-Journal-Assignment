@@ -44,10 +44,9 @@ final class PhotoJournalHelper {
     static func addPhoto(photo: PhotoJournal) {
         photos.append(photo)
         savePhoto()
-print(DataPersistenceManager.filePathToDocumentsDirectory(filename: filename))
     }
     
-    static func deletePhoto(photo: PhotoJournal, atIndex index: Int) {
+    static func deletePhoto(atIndex index: Int) {
         photos.remove(at: index)
         savePhoto()
     }
@@ -56,7 +55,6 @@ print(DataPersistenceManager.filePathToDocumentsDirectory(filename: filename))
     photos[index] = photo
         savePhoto()
     }
-    
     
     
     

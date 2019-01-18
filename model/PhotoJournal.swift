@@ -10,9 +10,9 @@ import Foundation
 
 
 struct PhotoJournal: Codable {
-    let imageData: Data
-    let createdAt: String
-    let description: String
+    var imageData: Data
+    var createdAt: String
+    var description: String
     public var dateFormattedString: String {
         let isoDateFormatter = ISO8601DateFormatter()
         var formattedDate = createdAt

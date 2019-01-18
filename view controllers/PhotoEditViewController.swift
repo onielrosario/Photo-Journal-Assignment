@@ -18,19 +18,31 @@ class PhotoEditViewController: UIViewController {
     @IBOutlet weak var cancelButton: UIBarButtonItem!
      private var imagepickerController: UIImagePickerController!
     @IBOutlet weak var editTextview: UITextView!
-    
+    @IBOutlet var tapGesture: UITapGestureRecognizer!
+    var photo: PhotoJournal?
+    var index: Int!
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         editTextview.delegate = self
         imagePickerView()
         editTextview.becomeFirstResponder()
+        if let photo = photo {
+            editPhotoImage.image = UIImage.init(data: photo.imageData)
+        }
+        
     }
 
     
         private func showImageController() {
         present(imagepickerController, animated: true, completion: nil)
     }
+    
+    @IBAction func tappedrecognizer(_ sender: UITapGestureRecognizer) {
+        editTextview.resignFirstResponder()
+    }
+    
     
     private func imagePickerView() {
         imagepickerController = UIImagePickerController()
@@ -46,7 +58,13 @@ class PhotoEditViewController: UIViewController {
     }
     
     @IBAction func saveButton(_ sender: UIBarButtonItem) {
-        guard let titletextview = editTextview.text else { return }
+         guard let titletextview = editTextview.text else { return }
+            if let imageData = editPhotoImage.image?.jpegData(compressionQuality: 0.5) {
+                let photo = PhotoJournal.init(imageData: imageData, createdAt: photo.createdAt, description: photo.description)
+                 PhotoJournalHelper.addPhoto(photo: photo)
+                dismiss(animated: true, completion: nil)
+            }
+        if isEditing {
        let date = Date()
         let isoDateFormatter = ISO8601DateFormatter()
         isoDateFormatter.formatOptions = [.withFullDate,
@@ -55,17 +73,11 @@ class PhotoEditViewController: UIViewController {
                                           .withTimeZone,
                                           .withDashSeparatorInDate]
         let timeStamp = isoDateFormatter.string(from: date)
-        var imageData = Data()
-        _ = DataPersistenceManager.filePathToDocumentsDirectory(filename: PhotoJournalHelper.filename)
-        do {
-            let data = try PropertyListEncoder().encode(PhotoJournalHelper.getPhotos())
-           imageData = data
-        } catch {
-            print("property list error: \(error)")
-        }
+        if let imageData = editPhotoImage.image?.jpegData(compressionQuality: 0.5) {
         let photo = PhotoJournal.init(imageData: imageData, createdAt: timeStamp, description: titletextview)
-       PhotoJournalHelper.addPhoto(photo: photo)
+        PhotoJournalHelper.editPhoto(photo: photo, atIndex: index)
         dismiss(animated: true, completion: nil)
+        }
     }
     
     @IBAction func cancelButton(_ sender: UIBarButtonItem) {

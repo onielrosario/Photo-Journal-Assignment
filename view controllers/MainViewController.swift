@@ -13,13 +13,11 @@ class MainViewController: UIViewController {
     @IBOutlet weak var myCollectionView: UICollectionView!
     @IBOutlet weak var cellImage: UIImageView!
     @IBOutlet weak var AddButton: UIBarButtonItem!
-    @IBOutlet weak var indexButton: UIButton!
+
     
     private var allPhotos = [PhotoJournal]() {
         didSet {
-            DispatchQueue.main.async {
                 self.myCollectionView.reloadData()
-            }
         }
     }
     
@@ -27,21 +25,13 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         myCollectionView.dataSource = self
         myCollectionView.delegate = self
-//      updateUI()
-        if let photos = PhotoJournalHelper.getPhotos() {
-            allPhotos = photos
-        }
 
     }
     
-    private func updateUI(index: Int) -> UIImage {
-        let image = UIImage()
-        if let photojournal = PhotoJournalHelper.getPhotos()?[index] {
-            _ = UIImage.init(data: photojournal.imageData)
-        } else {
-            print("photo journal does not exist")
+    override func viewWillAppear(_ animated: Bool) {
+        if let photos = PhotoJournalHelper.getPhotos() {
+            allPhotos = photos
         }
-         return image
     }
     
     private func savePhoto(image: UIImage) {
@@ -57,11 +47,16 @@ class MainViewController: UIViewController {
         let edit = UIAlertAction(title: "edit", style: .default){_ in
             let storyBoard = UIStoryboard.init(name: "Main", bundle: nil)
             guard let vc = storyBoard.instantiateViewController(withIdentifier: "editController") as? PhotoEditViewController else { return }
-            vc.modalPresentationStyle = .overCurrentContext
+            vc.photo = self.allPhotos[sender.tag]
+            vc.index = sender.tag
+             vc.isEditing = true
+            vc.modalPresentationStyle = .currentContext
             self.present(vc, animated: true, completion: nil)
+           
         }
         let delete = UIAlertAction(title: "remove", style: .destructive){_ in
-            PhotoJournalHelper.deletePhoto(photo: allPhotos, atIndex: )
+            PhotoJournalHelper.deletePhoto(atIndex: sender.tag)
+            self.myCollectionView.reloadData()
         }
         let share = UIAlertAction(title: "share", style: .default, handler: nil)
         alert.addAction(edit)
@@ -75,7 +70,7 @@ class MainViewController: UIViewController {
        guard let vc = storyBoard.instantiateViewController(withIdentifier: "editController") as? PhotoEditViewController else { return }
         vc.modalPresentationStyle = .overCurrentContext
         self.present(vc, animated: true, completion: nil)
-      
+      vc.isEditing = false
     }
     
     
@@ -94,8 +89,9 @@ extension MainViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "myCell", for: indexPath) as? PhotoCollectionViewCell else { return UICollectionViewCell() }
        let photo = allPhotos[indexPath.row]
-        cell.cellImage.image = self.updateUI(index: indexPath.row)
-//        cell.cellPicInfo.text = photo?.description ?? ""
+         cell.cellPicInfo.text = photo.description
+        cell.editButton.tag = indexPath.row
+        cell.cellImage.image = UIImage(data: photo.imageData)
         return cell
     }
     

@@ -90,6 +90,7 @@
                                         </constraints>
                                         <connections>
                                             <outlet property="cellImage" destination="NLa-fJ-vnt" id="L09-Jm-7rh"/>
+                                            <outlet property="cellPicInfo" destination="p9q-Ee-oWe" id="YVN-rM-08E"/>
                                             <outlet property="editButton" destination="yDx-x1-fAo" id="Jm0-i3-Xrl"/>
                                         </connections>
                                     </collectionViewCell>
@@ -132,7 +133,6 @@
                     </view>
                     <connections>
                         <outlet property="AddButton" destination="B41-np-Tph" id="DF5-KZ-T5Q"/>
-                        <outlet property="indexButton" destination="yDx-x1-fAo" id="Izq-I6-y56"/>
                         <outlet property="myCollectionView" destination="rWZ-yB-caw" id="wHT-NV-fXH"/>
                     </connections>
                 </viewController>
@@ -220,6 +220,7 @@
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="7cv-TA-szI" firstAttribute="width" secondItem="mhF-fN-lmY" secondAttribute="width" multiplier="0.7" id="82q-Ou-Odw"/>
                             <constraint firstItem="7cv-TA-szI" firstAttribute="height" secondItem="mhF-fN-lmY" secondAttribute="height" multiplier="0.6" id="BD3-NR-18E"/>
@@ -227,6 +228,9 @@
                             <constraint firstItem="7cv-TA-szI" firstAttribute="centerY" secondItem="Wm1-Wo-D0K" secondAttribute="centerY" id="Iac-3H-vhv"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Wm1-Wo-D0K"/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="M9F-lH-odC" appends="YES" id="VcG-Az-ND8"/>
+                        </connections>
                     </view>
                     <connections>
                         <outlet property="cameraButton" destination="E5r-PF-x3h" id="0hv-2O-rhq"/>
@@ -234,9 +238,15 @@
                         <outlet property="editPhotoImage" destination="bod-Ep-Noa" id="8OL-Cy-foe"/>
                         <outlet property="editTextview" destination="dJI-Ig-eJX" id="VZU-TK-1ee"/>
                         <outlet property="saveButton" destination="cW7-pw-Spu" id="dyI-up-m1i"/>
+                        <outlet property="tapGesture" destination="M9F-lH-odC" id="h9s-oF-Uac"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="449-ei-kp1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="M9F-lH-odC">
+                    <connections>
+                        <action selector="tappedrecognizer:" destination="xA6-4h-EA3" id="sft-bc-1JC"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="430" y="103"/>
         </scene>
