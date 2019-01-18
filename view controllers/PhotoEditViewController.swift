@@ -78,7 +78,6 @@ class PhotoEditViewController: UIViewController {
             let timeStamp = isoDateFormatter.string(from: date)
             if let imageData = editPhotoImage.image?.jpegData(compressionQuality: 0.5) {
                 let photo = PhotoJournal.init(imageData: imageData, createdAt: timeStamp, description: titletextview)
-                
                 PhotoJournalHelper.addPhoto(photo: photo)
                 dismiss(animated: true, completion: nil)
             }
@@ -88,6 +87,7 @@ class PhotoEditViewController: UIViewController {
     @IBAction func cancelButton(_ sender: UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
     }
+    
     @IBAction func cameraButtonPressed(_ sender: UIBarButtonItem) {
         imagepickerController.sourceType = .camera
         showImageController()
