@@ -55,7 +55,4 @@ final class PhotoJournalHelper {
     photos[index] = photo
         savePhoto()
     }
-    
-    
-    
 }

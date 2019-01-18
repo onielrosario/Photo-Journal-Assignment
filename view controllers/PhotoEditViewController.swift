@@ -62,7 +62,7 @@ class PhotoEditViewController: UIViewController {
         if self.vewIsEditing {
             if let photo = photo {
                 if let imageData = editPhotoImage.image?.jpegData(compressionQuality: 0.5) {
-                    let photo = PhotoJournal.init(imageData: imageData, createdAt: photo.createdAt, description: photo.description)
+                    let photo = PhotoJournal.init(imageData: imageData, createdAt: photo.createdAt, description: editTextview.text)
                     PhotoJournalHelper.editPhoto(photo: photo, atIndex: index!)
                     dismiss(animated: true, completion: nil)
                 }
@@ -115,7 +115,9 @@ extension PhotoEditViewController: UIImagePickerControllerDelegate, UINavigation
 }
 
 extension PhotoEditViewController: UITextViewDelegate {
-    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        textView.text = ""
+    }
     
     
 }
