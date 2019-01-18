@@ -56,7 +56,9 @@ class MainViewController: UIViewController {
         }
         let delete = UIAlertAction(title: "remove", style: .destructive){_ in
             PhotoJournalHelper.deletePhoto(atIndex: sender.tag)
-            self.myCollectionView.reloadData()
+            if let photos  = PhotoJournalHelper.getPhotos() {
+                self.allPhotos = photos
+            }
         }
         let share = UIAlertAction(title: "share", style: .default, handler: nil)
         alert.addAction(edit)

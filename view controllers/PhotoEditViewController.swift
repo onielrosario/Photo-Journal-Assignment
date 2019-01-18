@@ -21,7 +21,7 @@ class PhotoEditViewController: UIViewController {
     @IBOutlet var tapGesture: UITapGestureRecognizer!
     var photo: PhotoJournal?
     var index: Int!
-
+    var vewIsEditing: Bool!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +30,7 @@ class PhotoEditViewController: UIViewController {
         editTextview.becomeFirstResponder()
         if let photo = photo {
             editPhotoImage.image = UIImage.init(data: photo.imageData)
+            editTextview.text = photo.description
         }
         
     }
@@ -59,12 +60,14 @@ class PhotoEditViewController: UIViewController {
     
     @IBAction func saveButton(_ sender: UIBarButtonItem) {
          guard let titletextview = editTextview.text else { return }
+        if let photo = photo {
             if let imageData = editPhotoImage.image?.jpegData(compressionQuality: 0.5) {
                 let photo = PhotoJournal.init(imageData: imageData, createdAt: photo.createdAt, description: photo.description)
-                 PhotoJournalHelper.addPhoto(photo: photo)
+              PhotoJournalHelper.editPhoto(photo: photo, atIndex: index)
+            
                 dismiss(animated: true, completion: nil)
             }
-        if isEditing {
+        }
        let date = Date()
         let isoDateFormatter = ISO8601DateFormatter()
         isoDateFormatter.formatOptions = [.withFullDate,
@@ -75,7 +78,7 @@ class PhotoEditViewController: UIViewController {
         let timeStamp = isoDateFormatter.string(from: date)
         if let imageData = editPhotoImage.image?.jpegData(compressionQuality: 0.5) {
         let photo = PhotoJournal.init(imageData: imageData, createdAt: timeStamp, description: titletextview)
-        PhotoJournalHelper.editPhoto(photo: photo, atIndex: index)
+      PhotoJournalHelper.addPhoto(photo: photo)
         dismiss(animated: true, completion: nil)
         }
     }
