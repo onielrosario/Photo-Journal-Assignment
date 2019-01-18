@@ -87,7 +87,6 @@ extension MainViewController: UICollectionViewDelegate {
 extension MainViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return allPhotos!.count
-   
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -96,8 +95,8 @@ extension MainViewController: UICollectionViewDataSource {
         cell.cellPicInfo.text = photo!.description
         cell.editButton.tag = indexPath.row
         cell.cellImage.image = UIImage(data: photo!.imageData)
+        cell.photoDate.text = photo?.dateFormattedString
+        cell.layer.cornerRadius = 5
         return cell
     }
-    
-    
 }

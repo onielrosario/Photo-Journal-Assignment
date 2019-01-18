@@ -61,8 +61,16 @@ class PhotoEditViewController: UIViewController {
         guard let titletextview = editTextview.text else { return }
         if self.vewIsEditing {
             if let photo = photo {
+                let date = Date()
+                let isoDateFormatter = ISO8601DateFormatter()
+                isoDateFormatter.formatOptions = [.withFullDate,
+                                                  .withFullTime,
+                                                  .withInternetDateTime,
+                                                  .withTimeZone,
+                                                  .withDashSeparatorInDate]
+                let timeStamp = isoDateFormatter.string(from: date)
                 if let imageData = editPhotoImage.image?.jpegData(compressionQuality: 0.5) {
-                    let photo = PhotoJournal.init(imageData: imageData, createdAt: photo.createdAt, description: editTextview.text)
+                    let photo = PhotoJournal.init(imageData: imageData, createdAt: timeStamp, description: editTextview.text)
                     PhotoJournalHelper.editPhoto(photo: photo, atIndex: index!)
                     dismiss(animated: true, completion: nil)
                 }
@@ -118,6 +126,4 @@ extension PhotoEditViewController: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         textView.text = ""
     }
-    
-    
 }

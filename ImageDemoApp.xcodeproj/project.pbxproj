@@ -77,6 +77,7 @@
 		09FFC59221ED1CC500C440CA /* view controllers */ = {
 			isa = PBXGroup;
 			children = (
+				09FFC58221ED1A3F00C440CA /* MainViewController.swift */,
 				09005CAF21EE941000063536 /* PhotoEditViewController.swift */,
 			);
 			path = "view controllers";
@@ -95,7 +96,6 @@
 			children = (
 				09FFC58021ED1A3F00C440CA /* AppDelegate.swift */,
 				09FFC58721ED1A4100C440CA /* Assets.xcassets */,
-				09FFC58221ED1A3F00C440CA /* MainViewController.swift */,
 				09FFC58921ED1A4100C440CA /* LaunchScreen.storyboard */,
 			);
 			path = "supporting files";

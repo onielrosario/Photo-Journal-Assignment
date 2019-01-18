@@ -72,7 +72,7 @@
                                                 </label>
                                             </subviews>
                                         </view>
-                                        <color key="backgroundColor" name="selectedControlColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="NLa-fJ-vnt" firstAttribute="centerY" secondItem="mtK-8A-Vkc" secondAttribute="centerY" multiplier="0.8" id="2Uj-El-AZl"/>
                                             <constraint firstItem="yDx-x1-fAo" firstAttribute="centerX" secondItem="NLa-fJ-vnt" secondAttribute="centerX" id="8Y6-Q4-g5o"/>
@@ -92,6 +92,7 @@
                                             <outlet property="cellImage" destination="NLa-fJ-vnt" id="L09-Jm-7rh"/>
                                             <outlet property="cellPicInfo" destination="p9q-Ee-oWe" id="YVN-rM-08E"/>
                                             <outlet property="editButton" destination="yDx-x1-fAo" id="Jm0-i3-Xrl"/>
+                                            <outlet property="photoDate" destination="ZAV-va-m3o" id="9yX-Lc-sCz"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>

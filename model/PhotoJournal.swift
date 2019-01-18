@@ -23,4 +23,12 @@ struct PhotoJournal: Codable {
         }
         return formattedDate
     }
+    public var date: Date {
+        let isoFormatter = ISO8601DateFormatter()
+        var formattedDate = Date()
+        if let date = isoFormatter.date(from: createdAt) {
+            formattedDate = date
+        }
+        return formattedDate
+    }
 }
